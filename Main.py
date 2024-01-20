@@ -1,6 +1,7 @@
 import pygame
 from Road import Road
 from Road import Segment
+from Motorcycle import Motorcycle
 
 pygame.init()
 
@@ -16,14 +17,22 @@ color = (255, 240, 255)
 
 texture = pygame.image.load('Assets/texture.png')
 
-road = Road([Segment(0, 0, 0, 0, texture),Segment(1, 1, 1, 0.1, texture)])
+road = Road(5, texture, height)
+
+motorcycle = Motorcycle(width/2, height/2, 10, 10, 100, 1)
 
 while True:
 
     screen.fill((0, 0, 0))
 
-    for segment in road.segments:
-        segment.draw(screen)
+    road.generate_road(800, 100, 10)
+
+    road.draw_road(screen)
+
+    road.update(10, 800, 100, 10)
+
+    motorcycle.update(10)
+    motorcycle.draw(screen)
 
     pygame.display.flip()
 
