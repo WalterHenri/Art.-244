@@ -129,7 +129,7 @@ class App:
 
             grass_quad.set_xyw_color(0.5 * ConfigMap.Configuration.width, 0.5 * ConfigMap.Configuration.width,
                                      prev_projection[1], curr_projection[1],
-                                     0.5 * ConfigMap.Configuration.width, 0.5 * ConfigMap.Configuration.width,
+                                     ConfigMap.Configuration.width, ConfigMap.Configuration.width,
                                      ((i // 3) % 2) and (100, 168, 0) or (190, 190, 0))
             rumble_quad.set_xyw_color(prev_projection[0], curr_projection[0],
                                       prev_projection[1], curr_projection[1],
