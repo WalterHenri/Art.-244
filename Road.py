@@ -81,4 +81,3 @@ class Road:
     def __getitem__(self, i: int):
         return self.segments[i]
 
-

@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="00bce801-9664-46a0-8cad-666d7ceef0af" name="Changes" comment="Initial creation of the project art244">
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/App.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Camera.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/ConfigMap.py" afterDir="false" />
@@ -14,10 +15,17 @@
       <change afterPath="$PROJECT_DIR$/Utilities.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/Art244.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Art244.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+=======
+>>>>>>> 0e5168d76fd9ccef8a0087c1d83be0400016b259
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/mota.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/mota.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/Player.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Road.py" beforeDir="false" afterPath="$PROJECT_DIR$/Road.py" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/Motorcycle.py" beforeDir="false" afterPath="$PROJECT_DIR$/Motorcycle.py" afterDir="false" />
+>>>>>>> 0e5168d76fd9ccef8a0087c1d83be0400016b259
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,9 +42,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+<<<<<<< HEAD
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$USER_HOME$/AppData/Local/Programs/Python/Python312/Lib/random.py" root0="SKIP_INSPECTION" />
   </component>
+=======
+>>>>>>> 0e5168d76fd9ccef8a0087c1d83be0400016b259
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -46,6 +57,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< HEAD
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Python.Main.executor": "Run",
@@ -94,6 +106,29 @@
       <method v="2" />
     </configuration>
   </component>
+=======
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.AnimatedSprite.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Banana.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Motorcycle.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Road.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/DOC/GitHub/Art.-244&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+>>>>>>> 0e5168d76fd9ccef8a0087c1d83be0400016b259
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -110,9 +145,15 @@
       <option name="presentableId" value="Default" />
       <updated>1705765652932</updated>
       <workItem from="1705765681648" duration="8790000" />
+<<<<<<< HEAD
       <workItem from="1705791462048" duration="322000" />
       <workItem from="1705791801022" duration="13016000" />
       <workItem from="1705847874937" duration="8961000" />
+=======
+      <workItem from="1705794105002" duration="6124000" />
+      <workItem from="1705840502717" duration="1943000" />
+      <workItem from="1705847304915" duration="1097000" />
+>>>>>>> 0e5168d76fd9ccef8a0087c1d83be0400016b259
     </task>
     <task id="LOCAL-00001" summary="Initial creation of the project art244">
       <option name="closed" value="true" />
@@ -144,7 +185,15 @@
     <option name="LAST_COMMIT_MESSAGE" value="Initial creation of the project art244" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+<<<<<<< HEAD
     <SUITE FILE_PATH="coverage/Art__244$Main.coverage" NAME="Main Coverage Results" MODIFIED="1705859923881" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+=======
+    <SUITE FILE_PATH="coverage/Art__244$Road.coverage" NAME="Road Coverage Results" MODIFIED="1705802796478" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Art__244$Banana.coverage" NAME="Banana Coverage Results" MODIFIED="1705804078802" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+>>>>>>> 0e5168d76fd9ccef8a0087c1d83be0400016b259
     <SUITE FILE_PATH="coverage/Art244$Main.coverage" NAME="Main Coverage Results" MODIFIED="1705785593530" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Art__244$Main.coverage" NAME="Main Coverage Results" MODIFIED="1705848406997" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Art__244$AnimatedSprite.coverage" NAME="AnimatedSprite Coverage Results" MODIFIED="1705803068665" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Art__244$Motorcycle.coverage" NAME="Motorcycle Coverage Results" MODIFIED="1705847693761" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
