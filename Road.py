@@ -35,9 +35,8 @@ class Road:
 
     def update(self, speed, screen_width, segment_width, num_segments):
         self.speed = speed
-        self.generate_road(screen_width, segment_width, num_segments)
+        #self.generate_road(screen_width, segment_width, num_segments)
 
     def draw_road(self, screen):
         for segment in self.segments:
             segment.draw(screen)
-        pygame.display.flip()

@@ -21,12 +21,17 @@ texture = pygame.image.load('Assets/texture.png')
 road = Road(5, texture, height)
 
 motorcycle = Motorcycle(width/2, height/2, 10, 10, 100, 1)
+road.generate_road(800, 100, 10)
+
+
+from Banana import Banana
+# BAnAanaa
+banana = Banana(width/2 , height/2- 50)
+
 
 while True:
 
     screen.fill(color)
-
-    road.generate_road(800, 100, 10)
 
     road.draw_road(screen)
 
@@ -34,6 +39,9 @@ while True:
 
     motorcycle.update(10)
     motorcycle.draw(screen)
+
+    banana.update(0.2)
+    banana.draw(screen)
 
     pygame.display.flip()
 

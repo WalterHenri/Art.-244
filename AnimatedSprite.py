@@ -1,4 +1,8 @@
 import pygame
+
+# Classe feita pelo GPT
+# Armazena uma lista de sprites em um array
+# Útil para fazer animações
 class AnimatedSprite(pygame.sprite.Sprite):
     def __init__(self, spritesheet, frame_width, frame_height, num_frames):
         super().__init__()
@@ -16,9 +20,11 @@ class AnimatedSprite(pygame.sprite.Sprite):
         self.image = self.frames[self.current_frame]
         self.rect = self.image.get_rect()
 
-        self.rect.center = (0, 0)
-        self.animation_speed = 0.1  # Adjust based on your desired animation speed
+        self.rect.center = (self.width/2, self.height/2)
+        self.animation_speed = 0.001  # Adjust based on your desired animation speed
 
-    def update(self):
-        self.current_frame = (self.current_frame + self.animation_speed) % self.num_frames
-        self.image = self.frames[self.current_frame]
+    def update(self, delta_time):
+        self.current_frame = (self.current_frame + self.animation_speed*delta_time)
+        if self.current_frame >= self.num_frames:
+            self.current_frame = self.current_frame % self.num_frames
+        self.image = self.frames[int(self.current_frame)]

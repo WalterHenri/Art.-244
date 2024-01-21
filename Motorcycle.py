@@ -1,7 +1,7 @@
 from enum import Enum
 
 import pygame
-import AnimatedSprite
+from AnimatedSprite import AnimatedSprite
 
 
 class State(Enum):
@@ -12,7 +12,7 @@ class State(Enum):
     facing_up = 5
 
 
-texturesForMotorCycle = pygame.image.load('Assets/acc.png')
+texturesForMotorCycle = pygame.image.load('Assets/mota.png')
 
 
 class Motorcycle:
@@ -20,6 +20,7 @@ class Motorcycle:
         self.x = x
         self.y = y
         self.sprite = texturesForMotorCycle
+        self.anim = AnimatedSprite(texturesForMotorCycle, 48, 64, 6)
         self.acceleration = acceleration
         self.deceleration = deceleration
         self.max_speed = max_speed
@@ -27,6 +28,7 @@ class Motorcycle:
         self.speed = 0
 
     def update(self, delta_time):
+        self.anim.update(delta_time)
         if self.state == State.accelerating:
             self.speed += self.acceleration * delta_time
             self.speed = min(self.speed, self.max_speed)
@@ -38,4 +40,4 @@ class Motorcycle:
         self.state = new_state
 
     def draw(self, screen):
-        screen.blit(self.sprite, (self.x, self.y))
+        screen.blit(self.anim.image, (self.x, self.y))
