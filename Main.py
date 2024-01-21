@@ -1,42 +1,13 @@
 import pygame
-from Road import Road
-from Road import Segment
-from Motorcycle import Motorcycle
-
-pygame.init()
-
-info = pygame.display.Info()
-
-width = info.current_w/2
-height = info.current_h/2
-
-screen = pygame.display.set_mode((width, height))
+from App import App
 
 
-color = (255, 240, 255)
+def main():
+    pygame.init()
+    app = App()
+    app.run()
 
-texture = pygame.image.load('Assets/texture.png')
 
-road = Road(5, texture, height)
+if __name__ == "__main__":
+    main()
 
-motorcycle = Motorcycle(width/2, height/2, 10, 10, 100, 1)
-
-while True:
-
-    screen.fill((0, 0, 0))
-
-    road.generate_road(800, 100, 10)
-
-    road.draw_road(screen)
-
-    road.update(10, 800, 100, 10)
-
-    motorcycle.update(10)
-    motorcycle.draw(screen)
-
-    pygame.display.flip()
-
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            quit()

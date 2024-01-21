@@ -1,43 +1,84 @@
-import random
+from Random import Random
+import ConfigMap
+from Utilities import Utilities
+from Object import Object
 
-import pygame
 
+class Segment(Object):
+    def __init__(self, x=0.0, y=0.0, z=0.0, length=200.0, width=2000.0, curve=0.0):
+        super().__init__(x, y, z)
+        self._length = length
+        self._width = width
+        self._curve = curve
 
-class Segment:
-    def __init__(self, x, y, z, inclination, texture, width, height):
-        self.x = x
-        self.y = y
-        self.z = z
-        self.inclination = inclination
-        self.texture = texture
-        self.width = width
-        self.height = height
-        self.texture = texture.subsurface(pygame.Rect(0, 0, width, height))
+    def get_length(self):
+        return self._length
 
-    def draw(self, screen):
-        screen.blit(self.texture, (self.x, self.y))
+    def get_width(self):
+        return self._width
+
+    def get_curve(self):
+        return self._curve
+
+    def set_length(self, length):
+        self._length = length
+
+    def set_width(self, width):
+        self._width = width
+
+    def set_curve(self, curve):
+        self._curve = curve
 
 
 class Road:
-    def __init__(self, speed, texture, screen_height):
-        self.speed = speed
-        self.texture = texture
-        self.screen_height = screen_height
+    def __init__(self):
         self.segments = []
+        self.rng = Random()
+        self.config = ConfigMap.Configuration
 
-    def generate_road(self, screen_width, segment_width, num_segments):
-        for i in range(num_segments):
-            x = i * segment_width
-            y = int(self.speed * i) + self.screen_height // 2
-            inclination = random.uniform(-0.1, 0.1)
-            segment = Segment(x, y, 0, inclination, self.texture, segment_width, segment_width)
+    def get_length(self):
+        return len(self.segments)
+
+    def add_segment(self, n_enter: int, n_hold: int, n_leave: int, curve: float, hill: float):
+        z = len(self.segments) * self.config.road_seg_len
+        for i in range(n_enter):
+            segment = Segment(0.0, Utilities.ease_in_out(0, hill, i / n_enter), z + i * self.config.road_seg_len,
+                              self.config.road_seg_len, self.config.road_width, Utilities.ease_in(0, curve, i / n_enter))
+            self.segments.append(segment)
+        for i in range(n_enter, n_enter + n_hold):
+            segment = Segment(0.0, hill, z + i * self.config.road_seg_len, self.config.road_seg_len,
+                              self.config.road_width, curve)
+            self.segments.append(segment)
+        for i in range(n_enter + n_hold, n_enter + n_hold + n_leave):
+            segment = Segment(0.0, Utilities.ease_in_out(hill, 0, (i - n_enter - n_hold) / n_leave),
+                              z + i * self.config.road_seg_len, self.config.road_seg_len, self.config.road_width,
+                              Utilities.ease_out(curve, 0, (i - n_enter - n_hold) / n_leave))
             self.segments.append(segment)
 
-    def update(self, speed, screen_width, segment_width, num_segments):
-        self.speed = speed
-        self.generate_road(screen_width, segment_width, num_segments)
+    def random_road(self):
+        n_segments = self.rng.rand_uint(self.config.road_segments_min, self.config.road_segments_max)
+        for _ in range(n_segments):
+            enter = self.rng.rand_uint(self.config.enter_length_min, self.config.enter_length_max)
+            hold = self.rng.rand_uint(self.config.hold_length_min, self.config.hold_length_max)
+            leave = self.rng.rand_uint(self.config.leave_length_min, self.config.leave_length_max)
+            if self.rng.rand_uint(0, 1):
+                curve = self.rng.rand_float(self.config.curve_min, self.config.curve_max)
+            else:
+                curve = 0.0
+            if self.rng.rand_uint(0, 1):
+                hill = self.config.road_seg_len * self.rng.rand_float(self.config.hill_min, self.config.hill_max)
+            else:
+                hill = 0.0
+            self.add_segment(enter, hold, leave, curve, hill)
 
-    def draw_road(self, screen):
-        for segment in self.segments:
-            segment.draw(screen)
-        pygame.display.flip()
+    def create_non_random_road(self):
+        self.add_segment(3, 500, 2, -10, 10)
+        self.add_segment(2, 4, 3, -5, 8)
+        self.add_segment(1, 300, 4, 0, 6)
+        self.add_segment(2, 4, 3, 5, 4)
+        self.add_segment(3, 500, 2, 10, 2)
+
+    def __getitem__(self, i: int):
+        return self.segments[i]
+
+
