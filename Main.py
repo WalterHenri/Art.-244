@@ -1,4 +1,5 @@
 import pygame
+import AnimatedSprite
 from Road import Road
 from Road import Segment
 from Motorcycle import Motorcycle
@@ -13,7 +14,7 @@ height = info.current_h/2
 screen = pygame.display.set_mode((width, height))
 
 
-color = (255, 240, 255)
+color = (10, 10, 255)
 
 texture = pygame.image.load('Assets/texture.png')
 
@@ -23,7 +24,7 @@ motorcycle = Motorcycle(width/2, height/2, 10, 10, 100, 1)
 
 while True:
 
-    screen.fill((0, 0, 0))
+    screen.fill(color)
 
     road.generate_road(800, 100, 10)
 

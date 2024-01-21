@@ -1,6 +1,7 @@
 from enum import Enum
 
 import pygame
+import AnimatedSprite
 
 
 class State(Enum):
