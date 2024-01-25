@@ -31,18 +31,17 @@ class Motorcycle:
     def update(self, delta_time):
 
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT]:
-            self.turnAmount -= 0.001 * delta_time
+        if keys[pygame.K_a]:
+            self.turnAmount -= 0.1 * delta_time
 
-        if keys[pygame.K_RIGHT]:
-            self.turnAmount += 0.001 * delta_time
+        if keys[pygame.K_d]:
+            self.turnAmount += 0.1 * delta_time
 
         if keys[pygame.K_SPACE]:
             self.change_state(State.accelerating)
 
         if keys[pygame.K_BACKSPACE]:
             self.change_state(State.decelerating)
-
 
 
         self.turnAmount = min(max(self.turnAmount, -3), 3)
@@ -61,14 +60,12 @@ class Motorcycle:
         self.state = new_state
 
     def draw(self, screen):
-        speedState = max(min(int((self.speed/self.max_speed)*3), 2), 0);
+        speedState = max(min(int((self.speed / self.max_speed) * 3), 2), 0);
         turnState = abs(int(self.turnAmount))
         if turnState != 0:
             speedState = 2
-
         sprite = self.anim.frames[speedState + turnState]
-
-
+        sprite = pygame.transform.scale_by(sprite, 2) # Assign the result back to sprite
         if self.turnAmount < 0:
             sprite = pygame.transform.flip(sprite, True, False)
             screen.blit(sprite, (self.x, self.y))

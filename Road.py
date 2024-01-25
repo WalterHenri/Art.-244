@@ -72,11 +72,12 @@ class Road:
             self.add_segment(enter, hold, leave, curve, hill)
 
     def create_non_random_road(self):
-        self.add_segment(3, 500, 2, -10, 10)
-        self.add_segment(2, 4, 3, -5, 8)
-        self.add_segment(1, 300, 4, 0, 6)
-        self.add_segment(2, 4, 3, 5, 4)
-        self.add_segment(3, 500, 2, 10, 2)
+        self.add_segment(3, 500, 20, 0, -60)
+        self.add_segment(2, 4, 30, -5, 8)
+        self.add_segment(100, 300, 40, 0, 60000)
+        self.add_segment(200, 4, 30, 5, 4)
+        self.add_segment(300, 500, 200, 10, -2000)
+        self.add_segment(3, 50, 200, -10, -60)
 
     def __getitem__(self, i: int):
         return self.segments[i]
