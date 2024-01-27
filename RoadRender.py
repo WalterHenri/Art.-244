@@ -43,13 +43,6 @@ class RoadRender:
 
             dx += curr.get_curve()
             x += dx
-            cam_x -= dx * 0.005
-            if cam_x > 1250 or cam_x < -1250:
-                if self.speed > 0:
-                    self.speed -= 0.1
-            else:
-                if self.speed < self.road.config.speed_max:
-                    self.speed += 0.1
 
             if i - 1 >= self.road.get_length():
                 self.cam.set_z(self.cam.get_z() - self.road.get_length() * ConfigMap.Configuration.road_seg_len)
@@ -130,10 +123,12 @@ class RoadRender:
         # Handle continuous key presses
         keys = pygame.key.get_pressed()
         if keys[pygame.K_a]:
-            self.cam.x -= self.delta
+           # self.cam.x -= self.delta
+            self.player.x -= 100
             self.redraw = True
         if keys[pygame.K_d]:
-            self.cam.x += self.delta
+            #self.cam.x += self.delta
+            self.player.x += 100
             self.redraw = True
         if keys[pygame.K_w]:
             if self.cam.y < ConfigMap.Configuration.cam_height_max:
