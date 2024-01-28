@@ -43,7 +43,6 @@ class Motorcycle:
         if keys[pygame.K_BACKSPACE]:
             self.change_state(State.decelerating)
 
-
         self.turnAmount = min(max(self.turnAmount, -3), 3)
 
         self.anim.update(delta_time)
@@ -54,8 +53,6 @@ class Motorcycle:
             self.speed -= self.deceleration * delta_time
             self.speed = max(self.speed, 0)
 
-
-
     def change_state(self, new_state):
         self.state = new_state
 
@@ -65,9 +62,14 @@ class Motorcycle:
         if turnState != 0:
             speedState = 2
         sprite = self.anim.frames[speedState + turnState]
-        sprite = pygame.transform.scale_by(sprite, 2) # Assign the result back to sprite
+        sprite = pygame.transform.scale_by(sprite, 2)  # Assign the result back to sprite
         if self.turnAmount < 0:
             sprite = pygame.transform.flip(sprite, True, False)
             screen.blit(sprite, (self.x, self.y))
         else:
             screen.blit(sprite, (self.x, self.y))
+
+
+class Pop100(Motorcycle):
+    def __init__(self):
+        super().__init__(0,0,10,5,120, 1)
