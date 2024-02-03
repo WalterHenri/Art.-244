@@ -1,5 +1,5 @@
 from enum import Enum
-
+from ConfigMap import Configuration
 import pygame
 from AnimatedSprite import AnimatedSprite
 
@@ -26,7 +26,7 @@ class Motorcycle:
         self.deceleration = deceleration
         self.max_speed = max_speed
         self.state = state
-        self.speed = 0
+        self.speed = 0.0
 
     def update(self, delta_time):
 
@@ -37,20 +37,20 @@ class Motorcycle:
         if keys[pygame.K_d]:
             self.turnAmount += 0.1 * delta_time
 
-        if keys[pygame.K_SPACE]:
+        if keys[pygame.K_w]:
             self.change_state(State.accelerating)
 
-        if keys[pygame.K_BACKSPACE]:
+        if keys[pygame.K_s]:
             self.change_state(State.decelerating)
 
         self.turnAmount = min(max(self.turnAmount, -3), 3)
 
         self.anim.update(delta_time)
         if self.state == State.accelerating:
-            self.speed += self.acceleration * delta_time
+            self.speed += (self.acceleration * delta_time)
             self.speed = min(self.speed, self.max_speed)
         elif self.state == State.decelerating:
-            self.speed -= self.deceleration * delta_time
+            self.speed -= (self.deceleration * delta_time)
             self.speed = max(self.speed, 0)
 
     def change_state(self, new_state):
@@ -72,4 +72,4 @@ class Motorcycle:
 
 class Pop100(Motorcycle):
     def __init__(self):
-        super().__init__(0,0,10,5,120, 1)
+        super().__init__(Configuration.width/2, Configuration.height/1.5, 20, 100, 300, 1)

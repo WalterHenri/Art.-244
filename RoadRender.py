@@ -7,7 +7,7 @@ import pygame
 
 
 class RoadRender:
-    def __init__(self, screen):
+    def __init__(self, screen, player):
         self.road = Road()
         self.road.create_non_random_road()
         self.cam = Camera(0.0, ConfigMap.Configuration.cam_height, 0.0, ConfigMap.Configuration.fov)
@@ -15,15 +15,23 @@ class RoadRender:
         self.speed = ConfigMap.Configuration.speed
         self.redraw = True
         self.screen = screen
-        self.player = Object()
+        self.player = player
         self.running = True
+        self.font_min = pygame.font.Font(None, 32)
+        self.font_max = pygame.font.Font(None, 64)
+
 
     def update(self):
         # Automatic movement
         self.redraw = True
-        self.cam.z += self.speed
+        self.cam.z += self.player.motorcycle.speed
         if self.cam.z >= self.road.get_length() * ConfigMap.Configuration.road_seg_len:
-            self.cam.z -= self.road.get_length() * ConfigMap.Configuration.road_seg_len
+            self.road.lap += 1
+            if self.road.lap < self.road.n_laps:
+                self.cam.z -= self.road.get_length() * ConfigMap.Configuration.road_seg_len
+            else:
+                self.running = False
+                self.road.on_win(self.player)
 
         if not self.redraw:
             return
@@ -86,55 +94,45 @@ class RoadRender:
             road_quad.draw(self.screen)
             road_line_quad.draw(self.screen)
 
+        self.draw_informations()
         self.cam.x = cam_x
         self.cam.y = cam_y
         self.cam.z = cam_z
         self.redraw = False
+
+
+    def draw_informations(self):
+        red = (255, 0, 0)
+        yellow = (255, 255, 0)
+        white = (255, 255, 255)
+
+        speed_x = self.screen.get_width() / 1.2
+        speed_y = self.screen.get_height() / 8
+
+        speed_text = self.font_max.render(str(int(self.player.motorcycle.speed)), True, red)
+        rect_speed = speed_text.get_rect()
+        rect_speed.center = (speed_x, speed_y)
+
+        # Render the text
+        speed_text_desc = self.font_min.render('KM/H', True, yellow)
+        rect_speed_text = speed_text_desc.get_rect()
+        rect_speed_text.center = (speed_x + rect_speed_text.width * 1.2, speed_y)
+
+        self.screen.blit(speed_text_desc, rect_speed_text)
+        self.screen.blit(speed_text, rect_speed)
 
     def handle_events(self):
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     self.running = False
-                elif event.key == pygame.K_r:
-                    if self.cam.fov < ConfigMap.Configuration.fov_max:
-                        self.cam.fov += ConfigMap.Configuration.d_fov
-                        self.update_text = True
-                elif event.key == pygame.K_f:
-                    if self.cam.fov > ConfigMap.Configuration.fov_min:
-                        self.cam.fov -= ConfigMap.Configuration.d_fov
-                        self.update_text = True
-                elif event.key == pygame.K_UP:
-                    if self.speed < ConfigMap.Configuration.speed_max:
-                        self.speed += ConfigMap.Configuration.d_speed
-                        self.update_text = True
-                elif event.key == pygame.K_DOWN:
-                    if self.speed > ConfigMap.Configuration.speed_min:
-                        self.speed -= ConfigMap.Configuration.d_speed
-                        self.update_text = True
-                elif event.key == pygame.K_RIGHTBRACKET:
-                    if self.delta < ConfigMap.Configuration.delta_max:
-                        self.delta += ConfigMap.Configuration.d_delta
-                        self.update_text = True
-                elif event.key == pygame.K_LEFTBRACKET:
-                    if self.delta > ConfigMap.Configuration.delta_min:
-                        self.delta -= ConfigMap.Configuration.d_delta
-                        self.update_text = True
+
         # Handle continuous key presses
         keys = pygame.key.get_pressed()
         if keys[pygame.K_a]:
-           # self.cam.x -= self.delta
             self.player.x -= 100
             self.redraw = True
         if keys[pygame.K_d]:
-            #self.cam.x += self.delta
             self.player.x += 100
             self.redraw = True
-        if keys[pygame.K_w]:
-            if self.cam.y < ConfigMap.Configuration.cam_height_max:
-                self.cam.y += self.delta
-            self.redraw = True
-        if keys[pygame.K_s]:
-            if self.cam.y > ConfigMap.Configuration.cam_height_min:
-                self.cam.y -= self.delta
-            self.redraw = True
+

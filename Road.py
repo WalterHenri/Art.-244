@@ -35,6 +35,11 @@ class Road:
         self.segments = []
         self.rng = Random()
         self.config = ConfigMap.Configuration
+        self.n_laps = 3
+        self.lap = 0
+
+    def on_win(self, player):
+        pass
 
     def get_length(self):
         return len(self.segments)

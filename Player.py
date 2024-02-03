@@ -1,6 +1,6 @@
 from Object import Object
-from Motorcycle import Motorcycle
 from Motorcycle import Pop100
+from ConfigMap import Configuration
 
 
 class Player(Object):
@@ -9,8 +9,11 @@ class Player(Object):
         self.score = 0
         self.name = ""
         self.motorcycle = Pop100()
+        self.frames = 0
 
     def update(self):
-        pass
+        self.frames += 1
+        self.frames = self.frames/Configuration.fps
+        self.motorcycle.update(self.frames)
 
 
