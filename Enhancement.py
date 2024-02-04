@@ -44,9 +44,11 @@ class Tree(Enhancement):
         self.height = self.sprite.get_height()
 
     def draw(self, screen, x, y, scale):
-        scale = scale / self.width
+
+
+        scale = 40*scale / self.width
         x = x - ((self.width / 2) * scale)
-        y = y - self.height
+        y = y - self.height*scale
         scaled_sprite = pygame.transform.scale(self.sprite, (
             int(self.sprite.get_width() * scale), int(self.sprite.get_height() * scale)))
         screen.blit(scaled_sprite, (x, y))

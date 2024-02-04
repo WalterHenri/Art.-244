@@ -35,6 +35,7 @@ class Road:
     def __init__(self):
         self.segments = []
         self.enhancements = []
+        self.en_index = []
         self.rng = Random()
         self.config = ConfigMap.Configuration
         self.n_laps = 3
@@ -63,8 +64,9 @@ class Road:
             self.segments.append(segment)
 
     def add_enhancement(self, x, y,  z):
-            tree = Tree(x, y, z)
+            tree = Tree(x, y, z*ConfigMap.Configuration.road_seg_len)
             self.enhancements.append(tree)
+            self.en_index[z].append(self.enhancements.__len__()-1)
 
     def random_road(self):
         n_segments = self.rng.rand_uint(self.config.road_segments_min, self.config.road_segments_max)
@@ -89,14 +91,16 @@ class Road:
         self.add_segment(200, 4, 30, 5, 4)
         self.add_segment(300, 500, 200, 10, -2000)
         self.add_segment(3, 50, 200, -10, -60)
-        self.add_enhancement(2, 0, 200)
-        self.add_enhancement(2, 0, 400)
-        self.add_enhancement(2, 0, 600)
-        self.add_enhancement(2, 0, 800)
-        self.add_enhancement(-200, 0, 1300)
-        self.add_enhancement(-20, 0, 600)
-        self.add_enhancement(-20, 0, 400)
-        self.add_enhancement(-200, 0, 200)
+
+        for i in range(self.segments.__len__()):
+            self.en_index.append([])
+
+        segPerTree = 24
+        for i in range(50):
+            if self.segments.__len__() > i*segPerTree:
+                self.add_enhancement(self.config.road_width//1.5, self.segments[i*segPerTree].y, i * segPerTree)
+                self.add_enhancement(-self.config.road_width//1.5, self.segments[i*segPerTree].y, i * segPerTree)
+
 
     def __getitem__(self, i: int):
         return self.segments[i]

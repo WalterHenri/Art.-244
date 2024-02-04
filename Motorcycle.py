@@ -31,11 +31,23 @@ class Motorcycle:
     def update(self, delta_time):
 
         keys = pygame.key.get_pressed()
+        turning = False
+
+
         if keys[pygame.K_a]:
-            self.turnAmount -= 0.1 * delta_time
+            self.turnAmount -= 0.2
+            turning = True
 
         if keys[pygame.K_d]:
-            self.turnAmount += 0.1 * delta_time
+            self.turnAmount += 0.2
+            turning = True
+
+        if not turning:
+            if self.turnAmount > 0:
+                self.turnAmount -= 0.2
+
+            if self.turnAmount < 0:
+                self.turnAmount += 0.2
 
         if keys[pygame.K_w]:
             self.change_state(State.accelerating)
@@ -65,9 +77,9 @@ class Motorcycle:
         sprite = pygame.transform.scale_by(sprite, 2)  # Assign the result back to sprite
         if self.turnAmount < 0:
             sprite = pygame.transform.flip(sprite, True, False)
-            screen.blit(sprite, (self.x, self.y))
+            screen.blit(sprite, (self.x - sprite.get_width()/2, self.y))
         else:
-            screen.blit(sprite, (self.x, self.y))
+            screen.blit(sprite, (self.x - sprite.get_width()/2, self.y))
 
 
 class Pop100(Motorcycle):

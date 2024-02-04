@@ -45,6 +45,11 @@ class RoadRender:
         cam_z = self.cam.z
         max_y = ConfigMap.Configuration.height
         self.cam.set_y(self.cam.get_y() + self.road.__getitem__(start_pos % self.road.get_length()).get_y())
+        last_seg = self.road.__getitem__((start_pos + ConfigMap.Configuration.draw_distance-1)  % self.road.get_length())
+        max_z = last_seg.get_z()
+
+        last_enhance = 0
+
         for i in range(start_pos + 1, start_pos + ConfigMap.Configuration.draw_distance):
             prev = self.road.__getitem__((i - 1) % self.road.get_length())
             curr = self.road.__getitem__(i % self.road.get_length())
@@ -64,6 +69,7 @@ class RoadRender:
                 continue
 
             max_y = curr_projection[1]
+
 
             # Create quads
             grass_quad = Quad()
@@ -88,18 +94,26 @@ class RoadRender:
                                          0.02 * prev_projection[2], 0.02 * curr_projection[2],
                                          ((i // 6) % 2) and (0, 0, 0) or (255, 255, 255))
 
+
+
+
             # Draw quads
             grass_quad.draw(self.screen)
             rumble_quad.draw(self.screen)
             road_quad.draw(self.screen)
             road_line_quad.draw(self.screen)
 
+
+
+
         for en in reversed(self.road.enhancements):
-            if self.cam.z + ConfigMap.Configuration.draw_distance < en.z:
-                project = self.cam.project_en(en, self.player, ConfigMap.Configuration.width, ConfigMap.Configuration.height)
-                if project[2] <= self.cam.get_depth() or project[1] >= max_y:
+            if self.cam.z + ConfigMap.Configuration.draw_distance < en.z - 800:
+                if en.z > max_z:
                     continue
+
+                project = self.cam.project_en(en, self.player, ConfigMap.Configuration.width, ConfigMap.Configuration.height)
                 en.draw(self.screen, project[0], project[1], project[2])
+
 
         self.draw_informations()
         self.cam.x = cam_x

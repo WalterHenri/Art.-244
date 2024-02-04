@@ -30,14 +30,14 @@ class Camera(Object):
         w_screen = (w / 2) * w_proj
         return x_screen, y_screen, w_screen
 
-    def project_en(self, seg, player, w, h):
-        x_translated = seg.get_x() - self.x - player.get_x()
-        y_translated = seg.get_y() - self.y
-        z_translated = seg.get_z() - self.z + 1
+    def project_en(self, en, player, w, h):
+        x_translated = en.get_x() - self.x - player.get_x()
+        y_translated = en.get_y() - self.y
+        z_translated = en.get_z() - self.z + 1
         x_proj = x_translated * self.d / z_translated
         y_proj = y_translated * self.d / z_translated
-        w_proj = seg.get_width() * self.d / z_translated
+        w_proj = en.get_width() * self.d / z_translated
         x_screen = (w / 2) * (1 + x_proj)
-        y_screen = y_proj
+        y_screen = (h / 2) * (1 - y_proj)
         w_screen = (w / 2) * w_proj
         return x_screen, y_screen, w_screen
