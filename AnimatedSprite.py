@@ -4,7 +4,7 @@ import pygame
 # Armazena uma lista de sprites em um array
 # Útil para fazer animações
 class AnimatedSprite(pygame.sprite.Sprite):
-    def __init__(self, spritesheet, frame_width, frame_height, num_frames):
+    def __init__(self, sprite_sheet, frame_width, frame_height, num_frames):
         super().__init__()
 
         self.frames = []
@@ -13,7 +13,7 @@ class AnimatedSprite(pygame.sprite.Sprite):
         self.height = frame_height
 
         for i in range(num_frames):
-            frame = spritesheet.subsurface((i * frame_width, 0, frame_width, frame_height))
+            frame = sprite_sheet.subsurface((i * frame_width, 0, frame_width, frame_height))
             self.frames.append(frame)
 
         self.current_frame = 0

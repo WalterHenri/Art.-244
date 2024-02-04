@@ -2,6 +2,7 @@ from Random import Random
 import ConfigMap
 from Utilities import Utilities
 from Object import Object
+from Enhancement import *
 
 
 class Segment(Object):
@@ -33,6 +34,7 @@ class Segment(Object):
 class Road:
     def __init__(self):
         self.segments = []
+        self.enhancements = []
         self.rng = Random()
         self.config = ConfigMap.Configuration
         self.n_laps = 3
@@ -60,6 +62,10 @@ class Road:
                               Utilities.ease_out(curve, 0, (i - n_enter - n_hold) / n_leave))
             self.segments.append(segment)
 
+    def add_enhancement(self, x, y,  z):
+            tree = Tree(x, y, z)
+            self.enhancements.append(tree)
+
     def random_road(self):
         n_segments = self.rng.rand_uint(self.config.road_segments_min, self.config.road_segments_max)
         for _ in range(n_segments):
@@ -83,6 +89,14 @@ class Road:
         self.add_segment(200, 4, 30, 5, 4)
         self.add_segment(300, 500, 200, 10, -2000)
         self.add_segment(3, 50, 200, -10, -60)
+        self.add_enhancement(2, 0, 200)
+        self.add_enhancement(2, 0, 400)
+        self.add_enhancement(2, 0, 600)
+        self.add_enhancement(2, 0, 800)
+        self.add_enhancement(-200, 0, 1300)
+        self.add_enhancement(-20, 0, 600)
+        self.add_enhancement(-20, 0, 400)
+        self.add_enhancement(-200, 0, 200)
 
     def __getitem__(self, i: int):
         return self.segments[i]

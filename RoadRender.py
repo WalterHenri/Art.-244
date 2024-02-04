@@ -94,6 +94,13 @@ class RoadRender:
             road_quad.draw(self.screen)
             road_line_quad.draw(self.screen)
 
+        for en in reversed(self.road.enhancements):
+            if self.cam.z + ConfigMap.Configuration.draw_distance < en.z:
+                project = self.cam.project_en(en, self.player, ConfigMap.Configuration.width, ConfigMap.Configuration.height)
+                if project[2] <= self.cam.get_depth() or project[1] >= max_y:
+                    continue
+                en.draw(self.screen, project[0], project[1], project[2])
+
         self.draw_informations()
         self.cam.x = cam_x
         self.cam.y = cam_y
