@@ -48,7 +48,7 @@ class RoadRender:
         last_seg = self.road.__getitem__((start_pos + ConfigMap.Configuration.draw_distance-1)  % self.road.get_length())
         max_z = last_seg.get_z()
 
-        last_enhance = 0
+        projections = []
 
         for i in range(start_pos + 1, start_pos + ConfigMap.Configuration.draw_distance):
             prev = self.road.__getitem__((i - 1) % self.road.get_length())
@@ -65,10 +65,25 @@ class RoadRender:
                 self.cam.z -= self.road.get_length() * ConfigMap.Configuration.road_seg_len
             self.cam.x = cam_x - x
             curr_projection = self.cam.project(curr, self.player, ConfigMap.Configuration.width, ConfigMap.Configuration.height)
-            if curr_projection[2] <= self.cam.get_depth() or curr_projection[1] >= max_y:
-                continue
 
-            max_y = curr_projection[1]
+
+            projections.append((prev_projection, curr_projection))
+
+        for i in reversed(range(start_pos + 1, start_pos + ConfigMap.Configuration.draw_distance)):
+
+            index = i - (start_pos+1)
+            z_ind = i % self.road.get_length()
+            prev_projection = projections[index][1]
+            curr_projection = projections[index][0]
+
+
+            #
+            # if curr_projection[2] <= self.cam.get_depth() or curr_projection[1] >= max_y:
+            #     continue
+            #
+            #
+            # max_y = curr_projection[1]
+
 
 
             # Create quads
@@ -97,22 +112,34 @@ class RoadRender:
 
 
 
-            # Draw quads
-            grass_quad.draw(self.screen)
-            rumble_quad.draw(self.screen)
-            road_quad.draw(self.screen)
-            road_line_quad.draw(self.screen)
+            # # Draw quads
+            if not curr_projection[2] <= self.cam.get_depth():
+                grass_quad.draw(self.screen)
+                rumble_quad.draw(self.screen)
+                road_quad.draw(self.screen)
+                road_line_quad.draw(self.screen)
 
+            for obj_index in self.road.en_index[z_ind]:
+                en = self.road.enhancements[obj_index]
+                if self.cam.z + ConfigMap.Configuration.draw_distance < en.z - 800:
+                    if en.z > max_z:
+                        continue
 
+                    project = [0, 0, 0]
 
+                    project[0] = curr_projection[0] + en.x * (curr_projection[2]/ConfigMap.Configuration.road_width)
+                    project[1] = curr_projection[1]
+                    project[2] = (curr_projection[2]/ConfigMap.Configuration.road_width)
 
-        for en in reversed(self.road.enhancements):
-            if self.cam.z + ConfigMap.Configuration.draw_distance < en.z - 800:
-                if en.z > max_z:
-                    continue
+                    en.draw(self.screen, project[0], project[1], project[2])
 
-                project = self.cam.project_en(en, self.player, ConfigMap.Configuration.width, ConfigMap.Configuration.height)
-                en.draw(self.screen, project[0], project[1], project[2])
+        # for en in reversed(self.road.enhancements):
+        #     if self.cam.z + ConfigMap.Configuration.draw_distance < en.z - 800:
+        #         if en.z > max_z:
+        #             continue
+        #
+        #         project = self.cam.project_en(en, self.player, ConfigMap.Configuration.width, ConfigMap.Configuration.height)
+        #         en.draw(self.screen, project[0], project[1], project[2])
 
 
         self.draw_informations()

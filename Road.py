@@ -63,10 +63,19 @@ class Road:
                               Utilities.ease_out(curve, 0, (i - n_enter - n_hold) / n_leave))
             self.segments.append(segment)
 
-    def add_enhancement(self, x, y,  z):
+    def add_enhancement(self, type, x, y, z):
+        if type == TypeEnhancement.tree:
             tree = Tree(x, y, z*ConfigMap.Configuration.road_seg_len)
             self.enhancements.append(tree)
-            self.en_index[z].append(self.enhancements.__len__()-1)
+            self.en_index[z].append(self.enhancements.__len__() - 1)
+        elif type == TypeEnhancement.cactus:
+            cactus = Cactus(x, y, z*ConfigMap.Configuration.road_seg_len)
+            cactus.type = self.rng.rand_uint(0, 2)
+            self.enhancements.append(cactus)
+            self.en_index[z].append(self.enhancements.__len__() - 1)
+
+
+
 
     def random_road(self):
         n_segments = self.rng.rand_uint(self.config.road_segments_min, self.config.road_segments_max)
@@ -98,8 +107,8 @@ class Road:
         segPerTree = 24
         for i in range(50):
             if self.segments.__len__() > i*segPerTree:
-                self.add_enhancement(self.config.road_width//1.5, self.segments[i*segPerTree].y, i * segPerTree)
-                self.add_enhancement(-self.config.road_width//1.5, self.segments[i*segPerTree].y, i * segPerTree)
+                self.add_enhancement(TypeEnhancement.tree,self.config.road_width//1.5, self.segments[i*segPerTree].y, i * segPerTree)
+                self.add_enhancement(TypeEnhancement.cactus,-self.config.road_width//1.5, self.segments[i*segPerTree].y, i * segPerTree)
 
 
     def __getitem__(self, i: int):
