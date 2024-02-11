@@ -5,7 +5,7 @@ from ConfigMap import Configuration
 
 
 class MenuInicial:
-    def __init__(self,screen):
+    def __init__(self, screen):
         self.width = Configuration.width
         self.height = Configuration.height
         original_background = pygame.image.load("Assets/garage_background.jpg")
