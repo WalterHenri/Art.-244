@@ -1,4 +1,4 @@
-from Enum import Enum
+from enum import Enum
 
 
 class Options(Enum):

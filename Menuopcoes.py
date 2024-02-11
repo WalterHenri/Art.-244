@@ -6,8 +6,6 @@ from subprocess import call
 
 class MainApp:
     def __init__(self):
-        pygame.init()
-
         # Obtém as dimensões padrão da janela
         self.window_width = 800
         self.window_height = 600

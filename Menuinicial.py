@@ -1,14 +1,14 @@
-import sys
 import pygame
-from Options import Options
+from Game import Game
+from Garage import Garage
+from ConfigMap import Configuration
 
 
 class MenuInicial:
-    def __init__(self):
-        # Caminho para imagem
-        script_directory = os.path.dirname(os.path.abspath(__file__))
-        background_image_path = os.path.join(script_directory, "background.jpg")
-        original_background = pygame.image.load(background_image_path)
+    def __init__(self,screen):
+        self.width = Configuration.width
+        self.height = Configuration.height
+        original_background = pygame.image.load("Assets/garage_background.jpg")
         self.background_image = pygame.transform.scale(original_background, (self.width, self.height))
         # Cores
         self.white = (255, 255, 255)
@@ -18,6 +18,7 @@ class MenuInicial:
         self.font = pygame.font.Font(None, 45)
         # botões
         self.texts = ["Jogar", "Opções", "Sair", ]
+        self.screen = screen
         self.is_running = True
 
     def draw_text(self, text, x, y, color):
@@ -25,8 +26,9 @@ class MenuInicial:
         text_rect = text_surface.get_rect(center=(x, y))
         self.screen.blit(text_surface, text_rect)
 
-    def main_loop(self, screen):
-        while True:
+    def main_loop(self):
+        option = 0
+        while self.is_running:
             self.screen.blit(self.background_image, (0, 0))  # background
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -36,9 +38,11 @@ class MenuInicial:
                     pos = pygame.mouse.get_pos()
                     if 300 < pos[0] < 500:
                         if 200 < pos[1] < 240:
-                            return Options.Game_menu
+                            option = 0
+                            self.is_running = False
                         elif 300 < pos[1] < 340:
-                            return Options.Options_menu
+                            option = 1
+                            self.is_running = False
                         elif 400 < pos[1] < 440:
                             pygame.quit()
 
@@ -48,6 +52,18 @@ class MenuInicial:
                 self.draw_text(text, 400, 200 + i * 60, color)
 
             pygame.display.flip()
+        if option == 0:
+            self.run_game()
+        elif option == 1:
+            self.run_garage()
+
+    def run_game(self):
+        game = Game(self.screen)
+        game.run()
+
+    def run_garage(self):
+        garage = Garage(self.screen, width=self.width, height=self.height)
+        garage.main_loop()
 
     def is_hovered(self, x, y, text):
         rect = self.font.render(text, True, self.white).get_rect(center=(x, y))

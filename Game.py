@@ -1,10 +1,7 @@
 from RoadRender import RoadRender
 import ConfigMap
 import pygame
-import os
-from Motorcycle import Motorcycle
 from Player import Player
-from Menuinicial import MenuInicial
 
 
 class Game:

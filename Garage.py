@@ -1,5 +1,4 @@
 import pygame
-import sys
 
 class Motoca:
     def __init__(self, nome, marca, cilindradas, freio, aceleracao, path_image_mark, path_image_view):
@@ -23,7 +22,7 @@ class ImageButton:
         return self.rect.collidepoint(pos)
 
 class Garage:
-    def __init__(self, width, height):
+    def __init__(self,screen, width, height):
         self.is_running = True
         self.vetor_motos = [
             Motoca("Moto de alcides", "Marca1", "500cc", "ABS", "0-60 mph in 3.5s", "./Assets/logo_bmw.png", "./Assets/bmw.jpg"),
@@ -32,17 +31,12 @@ class Garage:
             Motoca("monark rebaixada", "Marca1", "500cc", "ABS", "0-60 mph in 3.5s", "./Assets/logo_monark.png ", "./Assets/monark.jpg"),
         ]
         self.indice = 0
-
+        self.screen = screen
         self.WIDTH = width
         self.HEIGHT = height
-        self.screen = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
-        pygame.display.set_caption("Garage")
-
         self.background = pygame.image.load("./assets/garage_background.jpg")
         self.background = pygame.transform.scale(self.background, (self.WIDTH, self.HEIGHT))
-
         self.image = pygame.image.load("./assets/logo.png")
-
         self.font_path = "./fonts/helvetica.otf"
         self.font_helvetica = pygame.font.Font(self.font_path, 24)
 
@@ -109,7 +103,7 @@ class Garage:
 
             surface.blit(image, image_position)
 
-    def draw(self, screen):
+    def draw(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.quit_game()
@@ -141,30 +135,25 @@ class Garage:
                     if self.indice > len(self.vetor_motos) - 1:
                         self.indice = 0
 
-        screen.blit(self.background, (0, 0))
+        self.screen.blit(self.background, (0, 0))
 
-        self.draw_rounded_rectangle(screen, (0, 0, 0), ((self.WIDTH - 580) / 2, 28, 580, 150), 10, 0.7, None, None, 0, None)
-        self.draw_rounded_rectangle(screen, (255, 255, 255), ((self.WIDTH - 562) / 2, 77, 562, 7), 10, 0.6, None, None, 0, None)
-        self.draw_rounded_rectangle(screen, (255, 255, 255), ((self.WIDTH - 562) / 2, 89, 562, 60), 10, 0.6, None, None, 0, None)
-        self.draw_rounded_rectangle(screen, (0, 0, 0), ((self.WIDTH - 120) / 2, 89, 120, 60), 10, 0.7, (self.rgb("2b2b2b"), self.rgb("777777")), (110, 202, 103), 3, self.vetor_motos[self.indice].path_image_mark)
-
+        self.draw_rounded_rectangle(self.screen, (0, 0, 0), ((self.WIDTH - 580) / 2, 28, 580, 150), 10, 0.7, None, None, 0, None)
+        self.draw_rounded_rectangle(self.screen, (255, 255, 255), ((self.WIDTH - 562) / 2, 77, 562, 7), 10, 0.6, None, None, 0, None)
+        self.draw_rounded_rectangle(self.screen, (255, 255, 255), ((self.WIDTH - 562) / 2, 89, 562, 60), 10, 0.6, None, None, 0, None)
+        self.draw_rounded_rectangle(self.screen, (0, 0, 0), ((self.WIDTH - 120) / 2, 89, 120, 60), 10, 0.7, (self.rgb("2b2b2b"), self.rgb("777777")), (110, 202, 103), 3, self.vetor_motos[self.indice].path_image_mark)
         self.draw_text("Oficina du grau", (530, 43), (110, 202, 103), 36)
-        self.button1.draw(screen)
-        self.button2.draw(screen)
-
-
+        self.button1.draw(self.screen)
+        self.button2.draw(self.screen)
         self.draw_text_center(self.vetor_motos[self.indice].nome, 165, (110, 202, 103), 36)
-        self.draw_image(screen, self.vetor_motos[self.indice].path_image_view, (400, 270), ((self.WIDTH//2), (self.HEIGHT//2) + 50))
-
-
-        screen.blit(self.image, (0, 0))
+        self.draw_image(self.screen, self.vetor_motos[self.indice].path_image_view, (400, 270), ((self.WIDTH//2), (self.HEIGHT//2) + 50))
+        self.screen.blit(self.image, (0, 0))
 
         pygame.display.flip()
 
-    def quit_game(self):
+    @staticmethod
+    def quit_game():
         pygame.quit()
-        sys.exit()
 
-    def main_loop(self, screen):
+    def main_loop(self):
         while self.is_running:
-            self.draw(screen)
+            self.draw()
