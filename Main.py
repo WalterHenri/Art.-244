@@ -1,4 +1,4 @@
-dimport pygame
+import pygame
 from App import App
 
 
